@@ -2,27 +2,14 @@
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap"
           rel="stylesheet">
-
     <title>Sixteen Clothing Products</title>
-
-    <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!--
-
-    TemplateMo 546 Sixteen Clothing
-
-    https://templatemo.com/tm-546-sixteen-clothing
-
-    -->
-
-    <!-- Additional CSS Files -->
     <link rel="stylesheet" href="assets/css/fontawesome.css">
     <link rel="stylesheet" href="assets/css/templatemo-sixteen.css">
     <link rel="stylesheet" href="assets/css/owl.css">
@@ -31,7 +18,6 @@
 
 <body>
 
-<!-- ***** Preloader Start ***** -->
 <div id="preloader">
     <div class="jumper">
         <div></div>
@@ -39,7 +25,6 @@
         <div></div>
     </div>
 </div>
-<!-- ***** Preloader End ***** -->
 
 <?php include('./layout/header.php'); ?>
 
@@ -65,10 +50,10 @@
             <div class="col-md-12">
                 <div class="filters">
                     <ul>
-                        <li class="active" data-filter="*">All Products</li>
-                        <li data-filter=".des">Featured</li>
-                        <li data-filter=".dev">Flash Deals</li>
-                        <li data-filter=".gra">Last Minute</li>
+                        <li class="active">All Products</li>
+                        <li >Featured</li>
+                        <li >Flash Deals</li>
+                        <li >Last Minute</li>
                     </ul>
                 </div>
             </div>
@@ -191,15 +176,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-12">
-                <ul class="pages">
-                    <li><a href="#">1</a></li>
-                    <li class="active"><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
-                </ul>
             </div>
         </div>
     </div>
