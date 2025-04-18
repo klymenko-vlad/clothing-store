@@ -11,6 +11,7 @@ $password = $_POST['password'] ?? '';
 
 try {
     $user->login($email, $password);
+
 } catch (Exception $e) {
     throw $e;
 }

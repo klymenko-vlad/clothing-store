@@ -16,10 +16,11 @@ class User extends Database
         $this->conn = $this->getConnection();
     }
 
-    public function register($email, $password, $role = 1): bool
+    public function register($email, $password, $firstname, $lastname, $phone, $role = 1): bool
     {
-        $stmt = $this->conn->prepare("SELECT * FROM user WHERE email = :email");
+        $stmt = $this->conn->prepare("SELECT * FROM users WHERE email = :email OR phone = :phone");
         $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':phone', $phone);
         $stmt->execute();
         $existingUser = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -29,19 +30,26 @@ class User extends Database
 
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        $stmt = $this->conn->prepare("INSERT INTO user (email, password, role) VALUES (:email, :password, :role)");
+        $stmt = $this->conn->prepare("INSERT INTO users (email, password, role, first_name, last_name, phone) VALUES (:email, :password, :role, :first_name, :last_name, :phone)");
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':password', $hashedPassword);
         $stmt->bindParam(':role', $role);
+        $stmt->bindParam(':first_name', $firstname);
+        $stmt->bindParam(':last_name', $lastname);
+        $stmt->bindParam(':phone', $phone);
         $stmt->execute();
 
         $userId = $this->conn->lastInsertId();
 
         $sessionToken = bin2hex(random_bytes(32));
 
-        $stmt = $this->conn->prepare("UPDATE user SET session_token = :session_token WHERE iduser = :iduser");
+        $stmt = $this->conn->prepare("UPDATE users SET session_token = :session_token WHERE iduser = :iduser");
         $stmt->bindParam(':session_token', $sessionToken);
         $stmt->bindParam(':iduser', $userId);
+        $stmt->execute();
+
+        $stmt = $this->conn->prepare("SELECT iduser, role FROM users WHERE email = :email");
+        $stmt->bindParam(':email', $email);
         $stmt->execute();
 
         return true;
@@ -49,7 +57,7 @@ class User extends Database
 
     public function login($email, $password): bool
     {
-        $stmt = $this->conn->prepare("SELECT * FROM user WHERE email = :email");
+        $stmt = $this->conn->prepare("SELECT * FROM users WHERE email = :email");
         $stmt->bindParam(':email', $email);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -63,32 +71,44 @@ class User extends Database
         }
 
         $sessionToken = bin2hex(random_bytes(32));
-        $stmt = $this->conn->prepare("UPDATE user SET session_token = :session_token WHERE iduser = :iduser");
+        $stmt = $this->conn->prepare("UPDATE users SET session_token = :session_token WHERE iduser = :iduser");
         $stmt->bindParam(':session_token', $sessionToken);
         $stmt->bindParam(':iduser', $user['iduser']);
         $stmt->execute();
 
         $_SESSION['user'] = [
-            'id' => $user['iduser'],
+            'email' => $user['email'],
             'role' => $user['role'],
-            'session_token' => $sessionToken
         ];
 
         return true;
     }
 
-    public function getUserById($id)
+    public function getUserByEmail($email)
     {
-        $stmt = $this->conn->prepare("SELECT iduser, email, role FROM user WHERE iduser = :id");
-        $stmt->bindParam(':id', $id);
+        $stmt = $this->conn->prepare("SELECT iduser, email, role, first_name, last_name, phone FROM users WHERE email = :email");
+        $stmt->bindParam(':email', $email);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function updateUser(mixed $userId, mixed $email, mixed $role): bool
+    public function updateUser($email, $role, $firstname, $lastname, $phone): bool
     {
-        $stmt = $this->conn->prepare("UPDATE user SET email = :email, role = :role WHERE iduser = :id");
-        $stmt->execute(['email' => $email, 'role' => $role, 'id' => $userId]);
+        $user = $this->getUserByEmail($_SESSION['user']['email']);
+
+        if (!$user) {
+            return false;
+        }
+
+        $stmt = $this->conn->prepare("UPDATE users SET email = :email, role = :role, first_name = :first_name, last_name = :last_name, phone = :phone WHERE iduser = :iduser");
+        $stmt->execute(['email' => $email, 'role' => $role, 'first_name' => $firstname, 'last_name' => $lastname, 'phone' => $phone, 'iduser' => $user['iduser']]);
+
+        $sessionToken = bin2hex(random_bytes(32));
+        $stmt = $this->conn->prepare("UPDATE users SET session_token = :session_token WHERE iduser = :iduser");
+        $stmt->bindParam(':session_token', $sessionToken);
+        $stmt->bindParam(':iduser', $user['iduser']);
+        $stmt->execute();
+
         return true;
     }
 

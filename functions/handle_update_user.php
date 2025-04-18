@@ -10,21 +10,18 @@ if (!isset($_SESSION['user'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $userId = $_POST['user_id'];
+
     $email = $_POST['email'];
     $role = $_POST['role'];
+    $first_name = $_POST['firstname'];
+    $last_name = $_POST['lastname'];
+    $phone = $_POST['phone'];
 
     $userInstance = new User();
-    $status = $userInstance->updateUser($userId, $email, $role);
+    $status = $userInstance->updateUser($email, $role, $first_name, $last_name, $phone);
 
-    if ($status) {
-        $_SESSION['user']['email'] = $email;
-        $_SESSION['user']['role'] = $role;
-        header('Location: ../me.php');
-    }
+    $_SESSION['user']['email'] = $email;
 
     header('Location: ../me.php');
     exit;
-
-
 }

@@ -5,7 +5,7 @@ function generateProduct($id, $image, $title, $price, $description = 'No descrip
         <a href="/phpproj/item.php?id=' . htmlspecialchars($id) . '">
             <div class="product-item">
                 <img height="300" width="200"
-                     src="' . htmlspecialchars($image ?? 'assets/images/default.jpg') . '"
+                     src="' . htmlspecialchars($image ?? 'assets/images/blank-product.png') . '"
                      alt="">
                 <div class="down-content">
                     <h4>' . htmlspecialchars($title) . '</h4>
@@ -24,5 +24,3 @@ function generateProduct($id, $image, $title, $price, $description = 'No descrip
         </a>
     ';
 }
-
-?>
