@@ -79,12 +79,12 @@ include('./layout/header.php');
         <div class="row">
             <?php
             require_once __DIR__ . '/classes/Product.php';
-            require_once __DIR__ . '/functions/itemDisplay.php';
+            require_once __DIR__ . '/functions/item_display.php';
 
             use Products\Product;
 
             $productModel = new Product();
-            $products = $productModel->getProducts();
+            $products = $productModel->getProducts(3);
             ?>
 
             <div class="col-md-12">

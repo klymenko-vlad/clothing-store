@@ -53,6 +53,12 @@ try {
                         </li>
                     <?php endif; ?>
 
+                    <?php if (isset($_SESSION['user'])): ?>
+                        <li class="nav-item <?php echo $lastPart === 'me.php' ? 'active' : ''; ?>">
+                            <a class="nav-link" href="me.php">Profile</a>
+                        </li>
+                    <?php endif; ?>
+
 
                 </ul>
             </div>

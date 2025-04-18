@@ -61,7 +61,7 @@ include('./layout/header.php');
 ?>
 
 <div class="pt-5">
-    <div class="container ">
+    <div class="container pt-5 ">
         <div class="row align-items-center ">
             <div class="col-md-6 text-center">
                 <img height="400" src="<?= htmlspecialchars($productData['image'] ?? 'assets/images/default.jpg') ?>"

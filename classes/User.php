@@ -70,12 +70,28 @@ class User extends Database
 
         $_SESSION['user'] = [
             'id' => $user['iduser'],
-            'email' => $user['email'],
             'role' => $user['role'],
             'session_token' => $sessionToken
         ];
 
         return true;
     }
+
+    public function getUserById($id)
+    {
+        $stmt = $this->conn->prepare("SELECT iduser, email, role FROM user WHERE iduser = :id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function updateUser(mixed $userId, mixed $email, mixed $role): bool
+    {
+        $stmt = $this->conn->prepare("UPDATE user SET email = :email, role = :role WHERE iduser = :id");
+        $stmt->execute(['email' => $email, 'role' => $role, 'id' => $userId]);
+        return true;
+    }
+
+
 
 }

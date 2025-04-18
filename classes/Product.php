@@ -16,12 +16,14 @@ class Product extends Database
     }
 
 
-    public function getProducts()
+    public function getProducts($limit = 20)
     {
-        $stmt = $this->conn->prepare('SELECT * FROM product LIMIT 3');
+        $stmt = $this->conn->prepare('SELECT * FROM product LIMIT :limit');
+        $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
 
     public function getProduct($id)
     {
