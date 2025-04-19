@@ -49,6 +49,8 @@ include('./layout/header.php');
 
             $productModel = new Product();
             $products = $productModel->getProducts(3);
+
+
             ?>
 
             <div class="col-md-12">
@@ -70,6 +72,7 @@ include('./layout/header.php');
                             $product['image'],
                             $product['title'],
                             $product['price'],
+                            $product['review_count'],
                             $product['description']
                         ); ?>
                     </div>

@@ -1,5 +1,5 @@
 <?php
-function generateProduct($id, $image, $title, $price, $description = 'No description available.')
+function generateProduct($id, $image, $title, $price, $reviewCount = 0, $description = 'No description available.')
 {
     return '
         <a href="/phpproj/item.php?id=' . htmlspecialchars($id) . '">
@@ -18,7 +18,7 @@ function generateProduct($id, $image, $title, $price, $description = 'No descrip
                         <li><i class="fa fa-star"></i></li>
                         <li><i class="fa fa-star"></i></li>
                     </ul>
-                    <span>Reviews (' . rand(5, 100) . ')</span>
+                    <span>Reviews (' . $reviewCount. ')</span>
                 </div>
             </div>
         </a>

@@ -18,7 +18,13 @@ class Product extends Database
 
     public function getProducts($limit = 20, $offset = 0)
     {
-        $stmt = $this->conn->prepare('SELECT * FROM products LIMIT :limit OFFSET :offset');
+        $stmt = $this->conn->prepare('SELECT products.*, COUNT(reviews.idreview) AS review_count
+        FROM products
+        LEFT JOIN reviews ON products.idproduct = reviews.idproduct
+        GROUP BY products.idproduct
+        LIMIT :limit OFFSET :offset
+    ');
+
         $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
         $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
         $stmt->execute();

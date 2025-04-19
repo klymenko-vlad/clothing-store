@@ -15,17 +15,17 @@ include('./layout/header.php');
 
             <div class="form-group mt-3">
                 <label for="first_name">First Name:</label>
-                <input type="text" name="first_name" id="first_name" class="form-control" required placeholder="Enter first name">
+                <input minlength="1" type="text" name="first_name" id="first_name" class="form-control" required placeholder="Enter first name">
             </div>
 
             <div class="form-group mt-3">
                 <label for="last_name">Last Name:</label>
-                <input type="text" name="last_name" id="last_name" class="form-control" required placeholder="Enter last name">
+                <input minlength="1" type="text" name="last_name" id="last_name" class="form-control" required placeholder="Enter last name">
             </div>
 
             <div class="form-group mt-3">
                 <label for="phone">Phone:</label>
-                <input type="text" name="phone" id="phone" class="form-control" required placeholder="Enter phone number">
+                <input type="tel" name="phone" id="phone" class="form-control" required placeholder="Enter phone number">
             </div>
 
             <div class="form-group mt-3">

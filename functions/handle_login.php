@@ -9,12 +9,15 @@ $user = new User();
 $email = $_POST['email'] ?? '';
 $password = $_POST['password'] ?? '';
 
-try {
-    $user->login($email, $password);
+$res = $user->login($email, $password);
 
-} catch (Exception $e) {
-    throw $e;
+if (!$res) {
+    header("Location: ../login.php?error=1");
+    exit();
 }
-header("Location: ../index.php");
+
+header("Location: ../me.php");
 exit();
+
+
 

@@ -7,11 +7,20 @@
 $pageTitle = 'Log in';
 
 include('./layout/header.php');
+
+$error = $_GET['error'] ?? null;
 ?>
+
+
 
 <div class="container d-flex justify-content-center align-items-center pt-5">
     <div class="login-container pt-5">
-        <h2 class="text-center">Login</h2>
+
+        <?php if($error == '1') {
+            echo '<div class="alert alert-danger" role="alert">Wrong credentials</div>';
+        } ?>
+
+        <h2 class="text-center mb-3">Login</h2>
         <form action="./functions/handle_login.php" method="post">
             <div class="form-group">
                 <label for="email">Email address:</label>

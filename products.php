@@ -11,7 +11,7 @@
         scrollbar-width: thin;
     }
 
-    .filters ul li {
+    .filters ul a {
         white-space: nowrap;
         padding: 8px 16px;
         background: #f8f9fa;
@@ -24,8 +24,8 @@
         color: red;
     }
 
-    .filters ul li:hover,
-    .filters ul li.active {
+    .filters ul a:hover,
+    .filters ul a.active {
         background-color: #bdbdbd;
         color: white;
     }
@@ -83,15 +83,12 @@ $categories = $categoryModel->getCategories();
             <div class="col-md-12">
                 <div class="filters mt-4">
                     <ul>
-                        <li class="<?= !isset($_GET['category']) ? 'active' : '' ?>">
-                            <a href="products.php">All Products</a>
-                        </li>
+                        <a class="<?= !isset($_GET['category']) ? 'active' : '' ?>" href="products.php">All Products</a>
                         <?php foreach ($categories as $category): ?>
-                            <li class="<?= (isset($_GET['category']) && $_GET['category'] == $category['idcategory']) ? 'active' : '' ?>">
-                                <a href="products.php?category=<?= $category['idcategory'] ?>">
-                                    <?= htmlspecialchars($category['title']) ?>
-                                </a>
-                            </li>
+                            <a class="<?= (isset($_GET['category']) && $_GET['category'] == $category['idcategory']) ? 'active' : '' ?>"
+                               href="products.php?category=<?= $category['idcategory'] ?>">
+                                <?= htmlspecialchars($category['title']) ?>
+                            </a>
                         <?php endforeach; ?>
                     </ul>
                 </div>
@@ -116,7 +113,6 @@ $categories = $categoryModel->getCategories();
         </div>
     </div>
 </div>
-
 
 <?php include('./layout/footer.php'); ?>
 
