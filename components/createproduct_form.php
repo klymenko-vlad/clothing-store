@@ -1,8 +1,18 @@
 <?php
+
+require_once __DIR__ . '/../classes/Category.php';
+
+use Categories\Category;
+
 if (!isset($_SESSION['user'])) {
     header('Location: login.php');
     exit;
 }
+
+$categoryInstance = new Category();
+$categories = $categoryInstance->getCategories();
+
+
 ?>
 
 <section class="pt-5">
@@ -24,10 +34,21 @@ if (!isset($_SESSION['user'])) {
                 <input type="number" name="price" id="price" class="form-control" step="0.01" required>
             </div>
 
-<!--            <div class="form-group mt-3">-->
-<!--                <label for="image">Product Image:</label>-->
-<!--                <input type="file" name="image" id="image" class="form-control-file" >-->
-<!--            </div>-->
+            <div class="form-group mt-4">
+                <label for="categories">Categories:</label>
+                <select required name="categories[]" id="categories" class="form-select" multiple
+                        size="<?php echo count($categories); ?>">
+                    <?php foreach ($categories as $category)
+                        echo '<option value="' . $category['idcategory'] . '">' . $category['title'] . '</option>';
+                    ?>}
+                </select>
+                <small class="form-text text-muted">Hold Ctrl (or Cmd) to select multiple</small>
+            </div>
+
+            <!--            <div class="form-group mt-3">-->
+            <!--                <label for="image">Product Image:</label>-->
+            <!--                <input type="file" name="image" id="image" class="form-control-file" >-->
+            <!--            </div>-->
 
             <button type="submit" class="btn btn-success mt-4">Create Product</button>
         </form>

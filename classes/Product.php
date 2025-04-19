@@ -19,8 +19,8 @@ class Product extends Database
     public function getProducts($limit = 20, $offset = 0)
     {
         $stmt = $this->conn->prepare('SELECT * FROM products LIMIT :limit OFFSET :offset');
-        $stmt->bindValue(':limit', (int) $limit, PDO::PARAM_INT);
-        $stmt->bindValue(':offset', (int) $offset, PDO::PARAM_INT);
+        $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -34,10 +34,31 @@ class Product extends Database
     }
 
 
-    public function createProduct($title, $price, $description, $iduser): bool
+    public function createProduct($title, $price, $description, $iduser, $categories): bool
     {
         $stmt = $this->conn->prepare('INSERT INTO products (title, price, description, seller_iduser) VALUES (:title, :price, :description, :seller_iduser)');
         $stmt->execute([':title' => $title, ':price' => $price, ':description' => $description, ':seller_iduser' => $iduser]);
+
+        $productId = $this->conn->lastInsertId();
+
+        foreach ($categories as $categoryId) {
+            $stmt = $this->conn->prepare("INSERT INTO product_categories (idproduct, idcategory) VALUES (:productId, :categoryId)");
+            $stmt->bindParam(':productId', $productId);
+            $stmt->bindParam(':categoryId', $categoryId);
+            $stmt->execute();
+        }
+
         return true;
+    }
+
+    public function getProductsByCategory($categoryId)
+    {
+        $stmt = $this->conn->prepare(
+            "SELECT p.* FROM products p
+         JOIN product_categories pc ON p.idproduct = pc.idproduct
+         WHERE pc.idcategory = :idcategory"
+        );
+        $stmt->execute([':idcategory' => $categoryId]);
+        return $stmt->fetchAll();
     }
 }

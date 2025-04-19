@@ -13,16 +13,17 @@ if (!isset($_SESSION['user'])) {
     exit();
 }
 
-if($_SERVER['REQUEST_METHOD'] == 'POST'){
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $product = new Product();
     $title = $_POST['title'];
     $price = $_POST['price'];
     $description = $_POST['description'];
+    $categories = $_POST['categories'];
 
     $userInstance = new User();
     $user = $userInstance->getUserByEmail($_SESSION['user']['email']);
 
-    $product->createProduct($title, $price, $description, $user['iduser']);
+    $product->createProduct($title, $price, $description, $user['iduser'], $categories);
 
     header('Location: ../product.php');
 }

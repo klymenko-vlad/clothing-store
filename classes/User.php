@@ -113,5 +113,23 @@ class User extends Database
     }
 
 
+    function deleteUserByEmail($email): void
+    {
+        $email = $_SESSION['user']['email'];
+        $user = $this->getUserByEmail($email);
+
+        if (!isset($user)) {
+            header('Location: login.php');
+            session_destroy();
+            exit;
+        }
+
+        $stmt = $this->conn->prepare("DELETE FROM users WHERE email = :email");
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+
+    }
+
+
 
 }

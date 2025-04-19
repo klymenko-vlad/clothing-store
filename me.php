@@ -72,6 +72,16 @@ include('./layout/header.php');
     }
 ?>
 
+<section class="pt-5">
+    <div class="container pt-5">
+        <h5 class="">You won't be able to restore your data!</h5>
+        <form action="./functions/handlers/handle_delete_user.php" method="post">
+
+            <button type="submit" class="btn btn-primary mt-4">Delete your account</button>
+        </form>
+    </div>
+</section>
+
 <?php include('./layout/footer.php'); ?>
 
 </body>
