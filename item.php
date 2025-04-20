@@ -1,4 +1,5 @@
 <?php
+
 use Products\Product;
 
 require_once './classes/Product.php';
@@ -21,6 +22,7 @@ if (!$productData) {
 <!DOCTYPE html>
 <html lang="en">
 <body>
+
 
 <?php
 ini_set('display_errors', 1);
@@ -46,7 +48,8 @@ $reviews = $reviewModel->getCommentsByProduct($productId);
     <div class="container pt-5 ">
         <div class="row align-items-center ">
             <div class="col-md-6 text-center">
-                <img height="400" src="<?= htmlspecialchars($productData['image'] ?? 'assets/images/blank-product.png') ?>"
+                <img height="400"
+                     src="<?= htmlspecialchars($productData['image'] ?? 'assets/images/blank-product.png') ?>"
                      alt="<?= htmlspecialchars($productData['title']) ?>" class="img-fluid">
             </div>
             <div class="col-md-6">
@@ -62,7 +65,12 @@ $reviews = $reviewModel->getCommentsByProduct($productId);
                 </ul>
                 <span>Reviews (<?= count($reviews) ?>)</span>
                 <br><br>
-                <a href="products.php" class="filled-button">Back to Products</a>
+                <a href="products.php" class="filled-button mb-4">Back to Products</a>
+                <form action="./functions/handlers/purchase/add_to_cart.php" method="post">
+                    <input type="hidden" name="product_id" value="<?= htmlspecialchars($productData['idproduct']) ?>">
+                    <button type="submit" class="btn btn-primary">Buy it</button>
+                    <p>You can pay and complete the checkout in your profile</p>
+                </form>
             </div>
         </div>
 
@@ -100,9 +108,11 @@ $reviews = $reviewModel->getCommentsByProduct($productId);
                     <?php foreach ($reviews as $review): ?>
                         <li class="media mb-4">
                             <div class="media-body">
-                                <h5 class="mt-0 mb-1"><?= htmlspecialchars($review['first_name']) . " " . htmlspecialchars($review['last_name']) ?> <small>(<?= $review['rating'] ?> stars)</small></h5>
+                                <h5 class="mt-0 mb-1"><?= htmlspecialchars($review['first_name']) . " " . htmlspecialchars($review['last_name']) ?>
+                                    <small>(<?= $review['rating'] ?> stars)</small></h5>
                                 <p><?= htmlspecialchars($review['comment']) ?></p>
-                                <small class="text-muted">Posted on <?= date('F j, Y', strtotime($review['created_at'])) ?></small>
+                                <small class="text-muted">Posted
+                                    on <?= date('F j, Y', strtotime($review['created_at'])) ?></small>
                             </div>
                         </li>
                     <?php endforeach; ?>
@@ -114,8 +124,6 @@ $reviews = $reviewModel->getCommentsByProduct($productId);
 
 
 </div>
-
-
 
 <?php include('./layout/footer.php'); ?>
 

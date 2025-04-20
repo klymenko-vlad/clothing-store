@@ -1,8 +1,10 @@
 <?php
 session_start();
 require_once __DIR__ . '/classes/User.php';
+require_once __DIR__ . '/classes/Order.php';
 
 use Users\User;
+use Orders\Order;
 
 if (!isset($_SESSION['user'])) {
     header('Location: login.php');
@@ -16,6 +18,11 @@ if (!$user) {
     echo "User not found.";
     exit;
 }
+
+$orderInstance = new Order();
+$orders = $orderInstance->getMyOrders($user['iduser']);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -81,6 +88,44 @@ include('./layout/header.php');
         </form>
     </div>
 </section>
+
+<div class="container pt-5">
+    <h2 class="mb-4">My Orders</h2>
+
+    <?php if (empty($orders)): ?>
+        <p>You have no orders yet.</p>
+    <?php else: ?>
+        <?php foreach ($orders as $order): ?>
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>Order #<?= $order['idorder'] ?></strong> |
+                        Status: <span class="badge bg-info"><?= ucfirst($order['status']) ?></span> |
+                        Date: <?= date('F j, Y H:i', strtotime($order['created_at'])) ?>
+                    </div>
+                    <?php if ($order['status'] !== 'shipped' && $_SESSION['user']['role'] == 2): ?>
+                        <form method="POST" action="./functions/handlers/orders/mark_as_shipped.php" class="m-0">
+                            <input type="hidden" name="order_id" value="<?= $order['idorder'] ?>">
+                            <button type="submit" class="btn btn-sm btn-success">Pay for this order</button>
+                        </form>
+                    <?php endif; ?>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <?php foreach ($order['products'] as $product): ?>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <div>
+                                <strong><?= htmlspecialchars($product['title']) ?></strong><br>
+                                Quantity: <?= $product['quantity'] ?> × $<?= number_format($product['price'], 2) ?>
+                            </div>
+                            <span class="fw-bold">$<?= number_format($product['subtotal'], 2) ?></span>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php endforeach; ?>
+    <?php endif; ?>
+</div>
+
 
 <?php include('./layout/footer.php'); ?>
 
