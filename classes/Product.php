@@ -18,7 +18,7 @@ class Product extends Database
 
     public function getProducts($limit = 20, $offset = 0)
     {
-        $stmt = $this->conn->prepare('SELECT products.*, COUNT(reviews.idreview) AS review_count
+        $stmt = $this->conn->prepare('SELECT products.*, ROUND(AVG(reviews.rating)) AS avg_rating, COUNT(reviews.idreview) AS review_count
         FROM products
         LEFT JOIN reviews ON products.idproduct = reviews.idproduct
         GROUP BY products.idproduct
@@ -34,7 +34,11 @@ class Product extends Database
 
     public function getProduct($id)
     {
-        $stmt = $this->conn->prepare('SELECT * FROM products WHERE idproduct = :id');
+        $stmt = $this->conn->prepare('
+            SELECT products.*, ROUND(AVG(reviews.rating)) AS avg_rating, COUNT(reviews.idreview) AS review_count FROM products
+            LEFT JOIN reviews ON reviews.idproduct = products.idproduct
+            WHERE products.idproduct = :id;
+        ');
         $stmt->execute(['id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }

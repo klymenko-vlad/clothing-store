@@ -38,7 +38,7 @@ include('./layout/header.php');
 <section class="pt-5">
     <div class="container pt-5">
         <h3 class="mb-4">Hello, <?= htmlspecialchars($user['first_name'])?>, you can view and change your profile here</h3>
-        <form action="./functions/handle_update_user.php" method="post">
+        <form action="functions/handlers/users/handle_update_user.php" method="post">
             <div class="form-group">
                 <label for="email">Email address:</label>
                 <input type="email" name="email" id="email" class="form-control" value="<?= htmlspecialchars($user['email']) ?>" required>
@@ -82,7 +82,7 @@ include('./layout/header.php');
 <section class="pt-5">
     <div class="container pt-5">
         <h5 class="">You won't be able to restore your data!</h5>
-        <form action="./functions/handlers/handle_delete_user.php" method="post">
+        <form action="functions/handlers/users/handle_delete_user.php" method="post">
 
             <button type="submit" class="btn btn-primary mt-4">Delete your account</button>
         </form>

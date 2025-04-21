@@ -95,18 +95,12 @@ $categories = $categoryModel->getCategories();
             </div>
             <?php if (empty($products)): ?>
                 <div class="col-md-12">
-                    <p>No products available at the moment. Please check back later!</p>
+                    <p>No products are available at the moment. Please check back later!</p>
                 </div>
             <?php else: ?>
                 <?php foreach ($products as $product): ?>
                     <div class="col-md-4">
-                        <?php echo generateProduct(
-                            $product['idproduct'],
-                            $product['image'],
-                            $product['title'],
-                            $product['price'],
-                            $product['description']
-                        ); ?>
+                        <?= generateProduct($product); ?>
                     </div>
                 <?php endforeach; ?>
             <?php endif; ?>

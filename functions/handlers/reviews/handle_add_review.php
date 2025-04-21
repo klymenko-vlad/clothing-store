@@ -25,5 +25,5 @@ if ($productId && $rating && $comment) {
     $reviewModel->addReview($productId, $email, $rating, $comment);
 }
 
-header("Location: ../../product.php?id=$productId");
+header("Location: /phpproj/item.php?id=$productId");
 exit;

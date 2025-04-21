@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . '/../classes/User.php';
+require_once __DIR__ . '/../../../classes/User.php';
 
 use Users\User;
 
@@ -22,6 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $_SESSION['user']['email'] = $email;
 
-    header('Location: ../me.php');
+    header('Location: /phpproj/me.php');
     exit;
 }

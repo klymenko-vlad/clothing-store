@@ -18,7 +18,7 @@ $categories = $categoryInstance->getCategories();
 <section class="pt-5">
     <div class="container pt-5">
         <h2>Create New Product</h2>
-        <form action="../functions/handlers/handle_create_product.php" method="post">
+        <form action="../functions/handlers/products/handle_create_product.php" method="post">
             <div class="form-group mt-3">
                 <label for="title">Product Title:</label>
                 <input type="text" name="title" id="title" class="form-control" required>

@@ -11,7 +11,7 @@ include('./layout/header.php');
 <div class="container d-flex justify-content-center align-items-center pt-5">
     <div class="register-container pt-5">
         <h2 class="text-center">Create Account</h2>
-        <form action="./functions/handle_register.php" method="post">
+        <form action="functions/handlers/auth/handle_register.php" method="post">
 
             <div class="form-group mt-3">
                 <label for="first_name">First Name:</label>

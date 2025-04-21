@@ -3,17 +3,19 @@
 <body>
 
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+require_once __DIR__ . '/classes/Product.php';
+require_once __DIR__ . '/functions/item_display.php';
+
+use Products\Product;
+
+$productModel = new Product();
+$products = $productModel->getProducts(3);
 
 $pageTitle = 'Sixteen Clothing';
 
 include('./layout/header.php');
 ?>
 
-<!-- Page Content -->
-<!-- Banner Starts Here -->
 <div class="banner header-text">
     <div class="owl-banner owl-carousel">
         <div class="banner-item-01">
@@ -36,23 +38,10 @@ include('./layout/header.php');
         </div>
     </div>
 </div>
-<!-- Banner Ends Here -->
 
 <div class="latest-products">
     <div class="container">
         <div class="row">
-            <?php
-            require_once __DIR__ . '/classes/Product.php';
-            require_once __DIR__ . '/functions/item_display.php';
-
-            use Products\Product;
-
-            $productModel = new Product();
-            $products = $productModel->getProducts(3);
-
-
-            ?>
-
             <div class="col-md-12">
                 <div class="section-heading">
                     <h2>Latest Products</h2>
@@ -67,14 +56,7 @@ include('./layout/header.php');
             <?php else: ?>
                 <?php foreach ($products as $product): ?>
                     <div class="col-md-4">
-                        <?php echo generateProduct(
-                            $product['idproduct'],
-                            $product['image'],
-                            $product['title'],
-                            $product['price'],
-                            $product['review_count'],
-                            $product['description']
-                        ); ?>
+                        <?php echo generateProduct($product); ?>
                     </div>
                 <?php endforeach; ?>
             <?php endif; ?>
@@ -141,9 +123,7 @@ include('./layout/header.php');
     </div>
 </div>
 
-
 <?php include('./layout/footer.php'); ?>
-
 
 </body>
 </html>

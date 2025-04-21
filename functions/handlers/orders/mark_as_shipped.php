@@ -18,5 +18,5 @@ if (!$orderId) {
 $orderModel = new Order();
 $orderModel->updateStatus($orderId, 'shipped');
 
-header('Location: ../../../profile.php');
+header('Location: ../../../me.php');
 exit;

@@ -21,7 +21,7 @@ $error = $_GET['error'] ?? null;
         } ?>
 
         <h2 class="text-center mb-3">Login</h2>
-        <form action="./functions/handle_login.php" method="post">
+        <form action="functions/handlers/auth/handle_login.php" method="post">
             <div class="form-group">
                 <label for="email">Email address:</label>
                 <input type="email" name="email" id="email" class="form-control" required placeholder="Enter email">

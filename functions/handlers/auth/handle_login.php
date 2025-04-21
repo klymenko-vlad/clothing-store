@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . '/../classes/User.php';
+require_once __DIR__ . '/../../../classes/User.php';
 
 use Users\User;
 
