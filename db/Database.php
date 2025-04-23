@@ -1,6 +1,9 @@
 <?php
 
-$config = require __DIR__ . '/../db/config.php';
+require __DIR__ . '/../vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
 
 class Database
 {
@@ -14,20 +17,20 @@ class Database
 
     private function connect()
     {
-        $config = DATABASE;
-
         $options = [
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         ];
 
         try {
+
             $this->conn = new PDO(
-                'mysql:host=' . $config['HOST'] . ';port=' . $config['PORT'] . ';dbname=' . $config['DBNAME'],
-                $config['USERNAME'],
-                $config['PASSWORD'],
+                'mysql:host=' . $_ENV['DB_HOST'] . ';port=' . $_ENV['DB_PORT'] . ';dbname=' . $_ENV['DB_NAME'],
+                $_ENV['DB_USERNAME'],
+                $_ENV['DB_PASSWORD'],
                 $options
             );
+
         } catch (PDOException $e) {
             die($e->getMessage());
         }

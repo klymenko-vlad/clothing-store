@@ -1,5 +1,5 @@
 <?php
-function generateProduct($product)
+function generateProduct($product): string
 {
     $id = htmlspecialchars($product['idproduct'] ?? '');
     $image = htmlspecialchars($product['image'] ?? 'assets/images/blank-product.png');
