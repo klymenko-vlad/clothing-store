@@ -18,7 +18,7 @@ $categories = $categoryInstance->getCategories();
 <section class="pt-5">
     <div class="container pt-5">
         <h2>Create New Product</h2>
-        <form action="../functions/handlers/products/handle_create_product.php" method="post">
+        <form action="../functions/handlers/products/handle_create_product.php" method="post" enctype="multipart/form-data">
             <div class="form-group mt-3">
                 <label for="title">Product Title:</label>
                 <input type="text" name="title" id="title" class="form-control" required>
@@ -45,10 +45,10 @@ $categories = $categoryInstance->getCategories();
                 <small class="form-text text-muted">Hold Ctrl (or Cmd) to select multiple</small>
             </div>
 
-            <!--            <div class="form-group mt-3">-->
-            <!--                <label for="image">Product Image:</label>-->
-            <!--                <input type="file" name="image" id="image" class="form-control-file" >-->
-            <!--            </div>-->
+            <div class="form-group mt-3">
+                <label for="image">Product Image:</label>
+                <input type="file" name="image" id="image" class="form-control-file">
+            </div>
 
             <button type="submit" class="btn btn-success mt-4">Create Product</button>
         </form>

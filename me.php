@@ -100,10 +100,10 @@ include('./layout/header.php');
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <div>
                         <strong>Order #<?= $order['idorder'] ?></strong> |
-                        Status: <span class="badge bg-info"><?= ucfirst($order['status']) ?></span> |
+                        Status: <span class="badge bg-info"><?= $order['status'] ?></span> |
                         Date: <?= date('F j, Y H:i', strtotime($order['created_at'])) ?>
                     </div>
-                    <?php if ($order['status'] !== 'shipped' && $_SESSION['user']['role'] == 2): ?>
+                    <?php if ($order['status'] !== 'shipped'): ?>
                         <form method="POST" action="./functions/handlers/orders/mark_as_shipped.php" class="m-0">
                             <input type="hidden" name="order_id" value="<?= $order['idorder'] ?>">
                             <button type="submit" class="btn btn-sm btn-success">Pay for this order</button>

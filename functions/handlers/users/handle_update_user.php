@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $status = $userInstance->updateUser($email, $role, $first_name, $last_name, $phone);
 
     $_SESSION['user']['email'] = $email;
+    $_SESSION['user']['role'] = $role;
 
     header('Location: /phpproj/me.php');
     exit;

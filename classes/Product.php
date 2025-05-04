@@ -15,7 +15,6 @@ class Product extends Database
         $this->conn = $this->getConnection();
     }
 
-
     public function getProducts($limit = 20, $offset = 0)
     {
         $stmt = $this->conn->prepare('SELECT products.*, ROUND(AVG(reviews.rating)) AS avg_rating, COUNT(reviews.idreview) AS review_count
@@ -44,10 +43,10 @@ class Product extends Database
     }
 
 
-    public function createProduct($title, $price, $description, $iduser, $categories): bool
+    public function createProduct($title, $price, $description, $iduser, $categories, $imageUrl): bool
     {
-        $stmt = $this->conn->prepare('INSERT INTO products (title, price, description, seller_iduser) VALUES (:title, :price, :description, :seller_iduser)');
-        $stmt->execute([':title' => $title, ':price' => $price, ':description' => $description, ':seller_iduser' => $iduser]);
+        $stmt = $this->conn->prepare('INSERT INTO products (title, price, description, seller_iduser, image) VALUES (:title, :price, :description, :seller_iduser, :image)');
+        $stmt->execute([':title' => $title, ':price' => $price, ':description' => $description, ':seller_iduser' => $iduser, ':image' => $imageUrl]);
 
         $productId = $this->conn->lastInsertId();
 

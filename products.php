@@ -55,7 +55,7 @@ $categoryId = $_GET['category'] ?? null;
 if ($categoryId) {
     $products = $productModel->getProductsByCategory($categoryId);
 } else {
-    $products = $productModel->getProducts(10);
+    $products = $productModel->getProducts(200);
 }
 
 $categoryModel = new Category();

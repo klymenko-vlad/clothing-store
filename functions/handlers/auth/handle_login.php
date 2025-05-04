@@ -16,7 +16,7 @@ if (!$res) {
     exit();
 }
 
-header("Location: ../me.php");
+header("Location: /phpproj/me.php");
 exit();
 
 

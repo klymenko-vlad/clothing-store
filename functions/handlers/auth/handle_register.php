@@ -26,7 +26,7 @@ if ($success) {
         'role' => $role,
     ];
 
-    header("Location: ../index.php");
+    header("Location: /phpproj/me.php");
     exit;
 } else {
     die("User already exists.");
